@@ -1,0 +1,141 @@
+# ==========================================
+# Nama : Saqila Elby Neina (312510173)
+# Mata Kuliah : Struktur Data
+# PROJECT 3: PROGRAM KELOLA DATA BARANG
+# ==========================================
+
+# Memaksimalkan data barang hingga 20
+MAX_BARANG = 20
+
+# Array 1 dimensi untuk menyimpan nama barang dan harga
+nama_barang = []
+harga_barang = []
+
+while True:
+    # Menampilkan Menu Utama sesuai contoh
+    print("\n=== MENU DATA BARANG ===")
+    print("1. Input Data")
+    print("2. Tampilkan Data")
+    print("3. Cari Barang")
+    print("4. Urutkan Harga")
+    print("5. Hapus Data")
+    print("6. Keluar")
+
+    pilihan = input("Pilih menu : ")
+
+    # 1. INPUT DATA BARANG
+    if pilihan == "1":
+        if len(nama_barang) >= MAX_BARANG:
+            print("Kapasitas penuh! Maksimal 20 barang.")
+        else:
+            jumlah = int(
+                input(
+                    f"Masukkan jumlah barang (maks. {MAX_BARANG - len(nama_barang)}): "
+                )
+            )
+
+            for i in range(jumlah):
+                if len(nama_barang) < MAX_BARANG:
+                    print(f"\nData Barang ke-{len(nama_barang) + 1}")
+                    nama = input("Nama Barang : ")
+                    harga = float(input("Harga Barang: "))
+
+                    # Memasukkan ke array 1D
+                    nama_barang.append(nama)
+                    harga_barang.append(harga)
+                    print("Barang berhasil ditambahkan!")
+                else:
+                    print("Sudah mencapai batas maksimal 20 barang!")
+                    break
+
+    # 2. TAMPILKAN SELURUH DATA
+    elif pilihan == "2":
+        if len(nama_barang) == 0:
+            print("Belum ada data barang.")
+        else:
+            print("\n--- DAFTAR DATA BARANG ---")
+            print(f"{'No':<5} | {'Nama Barang':<20} | {'Harga':<15}")
+            print("-" * 45)
+            for i in range(len(nama_barang)):
+                print(
+                    f"{i+1:<5} | {nama_barang[i]:<20} | Rp {harga_barang[i]:<12,.0f}"
+                )
+
+    # 3. CARI BARANG BERDASARKAN NAMA
+    elif pilihan == "3":
+        if len(nama_barang) == 0:
+            print("Belum ada data barang.")
+        else:
+            cari = input("Masukkan nama barang yang dicari: ")
+            ditemukan = False
+
+            for i in range(len(nama_barang)):
+                # Mengecek nama barang (tidak sensitif huruf besar/kecil)
+                if cari.lower() in nama_barang[i].lower():
+                    print(
+                        f"Ditemukan -> No: {i+1} | Nama: {nama_barang[i]} | Harga: Rp {harga_barang[i]:,.0f}"
+                    )
+                    ditemukan = True
+
+            if not ditemukan:
+                print("Barang tidak ditemukan.")
+
+    # 4. URUTKAN DATA BERDASARKAN HARGA (ASCENDING)
+    elif pilihan == "4":
+        if len(nama_barang) == 0:
+            print("Belum ada data barang.")
+        else:
+            # Algoritma pengurutan sederhana (Bubble Sort)
+            n = len(harga_barang)
+            for i in range(n):
+                for j in range(0, n - i - 1):
+                    # Jika harga sebelumnya lebih besar, tukar posisi
+                    if harga_barang[j] > harga_barang[j + 1]:
+                        # Tukar harga
+                        harga_barang[j], harga_barang[j + 1] = (
+                            harga_barang[j + 1],
+                            harga_barang[j],
+                        )
+                        # Tukar nama barang agar tetap sesuai dengan harganya
+                        nama_barang[j], nama_barang[j + 1] = (
+                            nama_barang[j + 1],
+                            nama_barang[j],
+                        )
+
+            print("Data berhasil diurutkan berdasarkan harga termurah!")
+
+            # Menampilkan hasil setelah diurutkan
+            print("\n--- DATA SETELAH DIURUTKAN ---")
+            for i in range(len(nama_barang)):
+                print(
+                    f"{i+1}. {nama_barang[i]} - Rp {harga_barang[i]:,.0f}"
+                )
+
+    # 5. HAPUS DATA BERDASARKAN INDEX
+    elif pilihan == "5":
+        if len(nama_barang) == 0:
+            print("Belum ada data barang.")
+        else:
+            # Tampilkan data dulu agar tahu index/nomornya
+            print("\n--- DAFTAR BARANG ---")
+            for i in range(len(nama_barang)):
+                print(f"{i+1}. {nama_barang[i]}")
+
+            index_hapus = (
+                int(input("Masukkan nomor (index) barang yang dihapus: ")) - 1
+            )
+
+            if 0 <= index_hapus < len(nama_barang):
+                terhapus = nama_barang.pop(index_hapus)
+                harga_barang.pop(index_hapus)
+                print(f"Barang '{terhapus}' berhasil dihapus!")
+            else:
+                print("Nomor index tidak valid.")
+
+    # 6. KELUAR
+    elif pilihan == "6":
+        print("Program selesai. Terima kasih!")
+        break
+
+    else:
+        print("Pilihan menu tidak valid!")
