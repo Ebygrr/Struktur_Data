@@ -1,0 +1,143 @@
+# ==========================================
+# Nama : Saqila Elby Neina (312510173)
+# Mata Kuliah : Struktur Data
+# PROGRAM SEDERHANA DATA NILAI MAHASISWA
+# ==========================================
+
+# Membuat array 1 dimensi untuk menyimpan nama dan nilai
+nama_mahasiswa = []
+nilai_mahasiswa = []
+
+# Batas maksimal data
+MAX = 10
+
+while True:
+    # Tampilan Menu Utama
+    print("\n=== MENU DATA NILAI MAHASISWA ===")
+    print("1. Input Data")
+    print("2. Tampilkan Data")
+    print("3. Nilai Tertinggi & Terendah")
+    print("4. Rata-rata")
+    print("5. Ubah Data")
+    print("6. Hapus Data")
+    print("7. Keluar")
+
+    pilihan = input("Pilih menu : ")
+
+    # 1. INPUT DATA
+    if pilihan == "1":
+        if len(nama_mahasiswa) >= MAX:
+            print("Data sudah penuh! Maksimal 10 mahasiswa.")
+        else:
+            jumlah = int(input("Masukkan jumlah data yang ingin diisi: "))
+
+            for i in range(jumlah):
+                if len(nama_mahasiswa) < MAX:
+                    print(f"\nData ke-{len(nama_mahasiswa) + 1}")
+                    nama = input("Nama  : ")
+                    nilai = float(input("Nilai : "))
+
+                    # Memasukkan data ke array 1 dimensi
+                    nama_mahasiswa.append(nama)
+                    nilai_mahasiswa.append(nilai)
+                    print("Data berhasil disimpan!")
+                else:
+                    print("Sudah mencapai batas maksimal (10 data)!")
+                    break
+
+    # 2. TAMPILKAN DATA
+    elif pilihan == "2":
+        if len(nama_mahasiswa) == 0:
+            print("Belum ada data.")
+        else:
+            print("\n--- DAFTAR MAHASISWA ---")
+            for i in range(len(nama_mahasiswa)):
+                print(
+                    f"{i + 1}. Nama: {nama_mahasiswa[i]} | Nilai: {nilai_mahasiswa[i]}"
+                )
+
+    # 3. NILAI TERTINGGI & TERENDAH
+    elif pilihan == "3":
+        if len(nama_mahasiswa) == 0:
+            print("Belum ada data.")
+        else:
+            tertinggi = max(nilai_mahasiswa)
+            terendah = min(nilai_mahasiswa)
+
+            print(f"\nNilai Tertinggi : {tertinggi}")
+            print(f"Nilai Terendah  : {terendah}")
+
+    # 4. RATA-RATA
+    elif pilihan == "4":
+        if len(nama_mahasiswa) == 0:
+            print("Belum ada data.")
+        else:
+            total_nilai = sum(nilai_mahasiswa)
+            rata_rata = total_nilai / len(nilai_mahasiswa)
+            print(f"\nRata-rata Nilai : {rata_rata}")
+
+    # 5. UBAH DATA
+    elif pilihan == "5":
+        if len(nama_mahasiswa) == 0:
+            print("Belum ada data.")
+        else:
+            print("\nPilih cara ubah:")
+            print("1. Pakai Nomor/Indeks")
+            print("2. Pakai Nama")
+            sub_pilihan = input("Pilih (1/2): ")
+
+            if sub_pilihan == "1":
+                nomor = int(input("Masukkan Nomor data yang diubah: ")) - 1
+                if nomor >= 0 and nomor < len(nama_mahasiswa):
+                    nama_mahasiswa[nomor] = input("Nama Baru  : ")
+                    nilai_mahasiswa[nomor] = float(input("Nilai Baru : "))
+                    print("Data berhasil diubah!")
+                else:
+                    print("Nomor tidak ditemukan.")
+
+            elif sub_pilihan == "2":
+                cari_nama = input("Masukkan Nama yang diubah: ")
+                if cari_nama in nama_mahasiswa:
+                    indeks = nama_mahasiswa.index(cari_nama)
+                    nama_mahasiswa[indeks] = input("Nama Baru  : ")
+                    nilai_mahasiswa[indeks] = float(input("Nilai Baru : "))
+                    print("Data berhasil diubah!")
+                else:
+                    print("Nama tidak ditemukan.")
+
+    # 6. HAPUS DATA
+    elif pilihan == "6":
+        if len(nama_mahasiswa) == 0:
+            print("Belum ada data.")
+        else:
+            print("\nPilih cara hapus:")
+            print("1. Pakai Nomor/Indeks")
+            print("2. Pakai Nama")
+            sub_pilihan = input("Pilih (1/2): ")
+
+            if sub_pilihan == "1":
+                nomor = int(input("Masukkan Nomor data yang dihapus: ")) - 1
+                if nomor >= 0 and nomor < len(nama_mahasiswa):
+                    nama_mahasiswa.pop(nomor)
+                    nilai_mahasiswa.pop(nomor)
+                    print("Data berhasil dihapus!")
+                else:
+                    print("Nomor tidak ditemukan.")
+
+            elif sub_pilihan == "2":
+                cari_nama = input("Masukkan Nama yang dihapus: ")
+                if cari_nama in nama_mahasiswa:
+                    indeks = nama_mahasiswa.index(cari_nama)
+                    nama_mahasiswa.pop(indeks)
+                    nilai_mahasiswa.pop(indeks)
+                    print("Data berhasil dihapus!")
+                else:
+                    print("Nama tidak ditemukan.")
+
+    # 7. KELUAR
+    elif pilihan == "7":
+        print("Program selesai. Terima kasih!")
+        break
+
+    else:
+        print("Pilihan menu tidak ada!")
