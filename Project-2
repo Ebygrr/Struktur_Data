@@ -1,0 +1,92 @@
+# ==========================================
+# Nama : Saqila Elby Neina (312510173)
+# Mata Kuliah : Struktur Data
+# PROJECT 2: DATA NILAI MAHASISWA (ARRAY 2D)
+# ==========================================
+
+print("=== INPUT DATA MAHASISWA & MATA KULIAH ===")
+
+# 1. Input Jumlah Mahasiswa (Maksimal 10)
+jml_mhs = int(input("Masukkan jumlah mahasiswa (maks. 10): "))
+if jml_mhs > 10:
+    print("Maksimal 10 mahasiswa! Jumlah diubah otomatis menjadi 10.")
+    jml_mhs = 10
+
+# 2. Input Jumlah Mata Kuliah (Maksimal 5)
+jml_matkul = int(input("Masukkan jumlah mata kuliah (maks. 5): "))
+if jml_matkul > 5:
+    print("Maksimal 5 mata kuliah! Jumlah diubah otomatis menjadi 5.")
+    jml_matkul = 5
+
+# Input nama-nama mata kuliah
+nama_matkul = []
+for j in range(jml_matkul):
+    mk = input(f"Masukkan nama mata kuliah ke-{j+1}: ")
+    nama_matkul.append(mk)
+
+# Array 1D untuk simpan nama mahasiswa
+nama_mhs = []
+
+# Array 2D untuk simpan nilai (baris = mahasiswa, kolom = mata kuliah)
+nilai_2d = []
+
+# 3 & 4. Input Nama dan Nilai setiap Mata Kuliah
+for i in range(jml_mhs):
+    print(f"\n--- Data Mahasiswa ke-{i+1} ---")
+    nama = input("Nama Mahasiswa: ")
+    nama_mhs.append(nama)
+
+    # Baris baru untuk nilai mahasiswa ini
+    nilai_mhs = []
+    for j in range(jml_matkul):
+        nilai = float(input(f"  Nilai {nama_matkul[j]}: "))
+        nilai_mhs.append(nilai)
+
+    # Masukkan list nilai 1D ke dalam list 2D
+    nilai_2d.append(nilai_mhs)
+
+
+# 5 & 6. TAMPILKAN TABEL NILAI & RATA-RATA PER MAHASISWA
+print("\n" + "=" * 60)
+print(" " * 10 + "=== DATA NILAI MAHASISWA (ARRAY 2D) ===")
+print("=" * 60)
+
+# Cetak Header Tabel
+header = f"{'No':<4} | {'Nama':<12}"
+for mk in nama_matkul:
+    header += f" | {mk:<12}"
+header += f" | {'Rata-rata':<10}"
+
+print(header)
+print("-" * len(header))
+
+# Cetak Isi Baris Tabel
+for i in range(jml_mhs):
+    # Hitung rata-rata nilai mahasiswa ke-i
+    total_nilai = sum(nilai_2d[i])
+    rata_rata = total_nilai / jml_matkul
+
+    baris = f"{i+1:<4} | {nama_mhs[i]:<12}"
+    for j in range(jml_matkul):
+        baris += f" | {nilai_2d[i][j]:<12.1f}"
+    baris += f" | {rata_rata:<10.1f}"
+
+    print(baris)
+
+print("-" * len(header))
+
+
+# 7. TAMPILKAN NILAI TERTINGGI & TERENDAH TIAP MATA KULIAH
+print("\nNilai tertinggi tiap mata kuliah :")
+for j in range(jml_matkul):
+    # Ambil nilai semua mahasiswa untuk mata kuliah kolom ke-j
+    nilai_kolom = [nilai_2d[i][j] for i in range(jml_mhs)]
+    tertinggi = max(nilai_kolom)
+    print(f" - {nama_matkul[j]:<15} : {tertinggi:.0f}")
+
+print("\nNilai terendah tiap mata kuliah :")
+for j in range(jml_matkul):
+    # Ambil nilai semua mahasiswa untuk mata kuliah kolom ke-j
+    nilai_kolom = [nilai_2d[i][j] for i in range(jml_mhs)]
+    terendah = min(nilai_kolom)
+    print(f" - {nama_matkul[j]:<15} : {terendah:.0f}")
